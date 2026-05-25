@@ -1,6 +1,3 @@
-// 1. CONFIG - Your API key
-    //const API_KEY = 'd42f8bada4861ca2817e7f46a30f3fc0';
-    //const BASE_URL = 'https://api.openweathermap.org/data/2.5';
     const BASE_URL = '/.netlify/functions/weather';
     
     // 2. DOM Elements
