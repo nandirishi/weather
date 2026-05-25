@@ -1,36 +1,20 @@
-       // netlify/functions/weather.js
-   exports.handler = async (event) => {
-     const API_KEY = process.env.OPENWEATHER_API_KEY; // Secret, stored in Netlify
-     const { endpoint, units = 'metric', q, lat, lon } = event.queryStringParameters;
+export default async (request, context) => {
+  const API_KEY = Netlify.env.get('OPENWEATHER_API_KEY'); // v2 syntax
+  
+  if (!API_KEY) {
+    return new Response(JSON.stringify({ error: 'API key not defined' }), { status: 500 });
+  }
+  
+  const url = new URL(request.url);
+  const endpoint = url.searchParams.get('endpoint');
+  url.searchParams.delete('endpoint');
+  const openWeatherUrl = `https://api.openweathermap.org/data/2.5/${endpoint}?${url.searchParams.toString()}&appid=${API_KEY}`;
 
-     if (!API_KEY) {
-       return {
-         statusCode: 500,
-         body: JSON.stringify({ error: 'API key not configured' })
-       };
-     }
+  const response = await fetch(openWeatherUrl);
+  const data = await response.json();
 
-     // Build OpenWeather URL
-     let url = `https://api.openweathermap.org/data/2.5/${endpoint}?appid=${API_KEY}&units=${units}`;
-     if (q) url += `&q=${encodeURIComponent(q)}`;
-     if (lat && lon) url += `&lat=${lat}&lon=${lon}`;
-
-     try {
-       const response = await fetch(url);
-       const data = await response.json();
-
-       return {
-         statusCode: response.status,
-         headers: {
-           'Access-Control-Allow-Origin': '*',
-           'Content-Type': 'application/json'
-         },
-         body: JSON.stringify(data)
-       };
-     } catch (error) {
-       return {
-         statusCode: 500,
-         body: JSON.stringify({ error: 'Failed to fetch weather data' })
-       };
-     }
-   };
+  return new Response(JSON.stringify(data), {
+    status: response.status,
+    headers: { 'Content-Type': 'application/json' }
+  });
+};
