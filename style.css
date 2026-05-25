@@ -1,0 +1,284 @@
+:root {
+  --bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --panel: rgba(255, 255, 255, 0.96);
+  --text: #2d3748;
+  --muted: #4a5568;
+  --accent: #4c51bf;
+  --border: #e2e8f0;
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  min-height: 100vh;
+  color: var(--text);
+  background: var(--bg);
+  padding: 16px;
+}
+
+.app-shell {
+  width: min(100%, 900px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hero-card,
+.current-card,
+.forecast-card {
+  background: var(--panel);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(102, 126, 234, 0.12);
+}
+
+.hero-card {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.73rem;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.hero-card h1 {
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  color: var(--muted);
+  line-height: 1.55;
+  max-width: 640px;
+}
+
+.search-box {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.search-box input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+  background: #fff;
+  color: var(--text);
+}
+
+.search-box input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.16);
+}
+
+.search-box button {
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: #667eea;
+  cursor: pointer;
+}
+
+.search-box button:hover {
+  background: #5a67d8;
+}
+
+.error,
+.loading {
+  padding: 12px 14px;
+  border-radius: 12px;
+  text-align: center;
+  display: none;
+}
+
+.error {
+  background: #fed7d7;
+  color: #c53030;
+}
+
+.loading {
+  background: #f7fafc;
+  color: var(--muted);
+}
+
+.current-card {
+  display: none;
+  padding: 18px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+}
+
+.current-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+}
+
+.current-label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.current-copy h2 {
+  font-size: clamp(1.5rem, 1.2rem + 1.1vw, 1.9rem);
+  margin: 4px 0 6px;
+}
+
+.description {
+  text-transform: capitalize;
+  color: rgba(255, 255, 255, 0.88);
+  margin-bottom: 8px;
+}
+
+.current-temp {
+  font-size: clamp(2.4rem, 1.9rem + 2vw, 3.3rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.current-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.current-details img {
+  width: 68px;
+  height: 68px;
+}
+
+.detail-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.detail-pills span {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+
+.forecast-card {
+  display: none;
+  padding: 18px;
+}
+
+.section-heading {
+  margin-bottom: 12px;
+}
+
+.section-heading h2 {
+  font-size: 1.15rem;
+  color: var(--accent);
+}
+
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(130px, 1fr));
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.forecast-card-item {
+  background: #f7fafc;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.forecast-day {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.forecast-card-item img {
+  width: 56px;
+  height: 56px;
+}
+
+.forecast-temp {
+  font-size: 1rem;
+  margin: 8px 0 4px;
+  color: var(--text);
+}
+
+.forecast-card-item p:last-child {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 720px) {
+  body {
+    padding: 12px;
+  }
+
+  .hero-card,
+  .current-card,
+  .forecast-card {
+    border-radius: 18px;
+    padding: 16px;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  .search-box button {
+    width: 100%;
+  }
+
+  .current-main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .current-details {
+    align-items: flex-start;
+  }
+
+  .detail-pills {
+    justify-content: flex-start;
+  }
+
+  .forecast-grid {
+    grid-template-columns: repeat(5, minmax(120px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .forecast-grid {
+    grid-template-columns: repeat(5, minmax(110px, 1fr));
+  }
+}
+

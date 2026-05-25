@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nano's Weather Forecast App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero-card">
+      <div>
+        <p class="eyebrow">Weather Forecast</p>
+        <h1>Track the sky in real time.</h1>
+        <p class="subtitle">Plan your day with a crisp weather snapshot and a 5-day outlook.</p>
+      </div>
+      <div class="search-box">
+        <input type="text" id="cityInput" placeholder="Search any city" aria-label="City name" />
+        <button id="searchBtn">Search</button>
+      </div>
+    </section>
+
+    <div class="error" id="error"></div>
+    <div class="loading" id="loading">Fetching weather data...</div>
+
+    <section class="current-card" id="currentWeather">
+      <div class="current-main">
+        <div class="current-copy">
+          <p class="current-label">Currently</p>
+          <h2 id="cityName"></h2>
+          <p class="description" id="description"></p>
+          <div class="current-temp" id="temp"></div>
+        </div>
+
+        <div class="current-details">
+          <img id="weatherIcon" src="" alt="Weather icon">
+          <div class="detail-pills">
+            <span>Humidity <strong id="humidity"></strong>%</span>
+            <span>Wind <strong id="wind"></strong> m/s</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="forecast-card" id="forecast">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">5-Day Forecast</p>
+          <h2>What the week looks like</h2>
+        </div>
+      </div>
+      <div class="forecast-grid" id="forecastGrid"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
