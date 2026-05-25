@@ -35,13 +35,11 @@
       forecastDiv.style.display = 'none';
       
       try {
-        // Make 2 API calls: current weather + 5-day forecast
         const [currentData, forecastData] = await Promise.all([
-          fetchWeather(`weather?q=${encodeURIComponent(city)}`),
-          fetchWeather(`forecast?q=${encodeURIComponent(city)}`)
+          fetchWeather('weather', { q: city, units: 'metric' }),
+          fetchWeather('forecast', { q: city, units: 'metric' })
         ]);
         
-        // JSON Parsing happens in display functions
         displayCurrentWeather(currentData);
         displayForecast(forecastData);
         
@@ -53,10 +51,9 @@
     }
     
     // 5. HTTP REQUEST FUNCTION - Core API concept
-    async function fetchWeather(endpoint) {
-      const url = `${BASE_URL}/${endpoint}&appid=${API_KEY}&units=metric`;
-      
-      const response = await fetch(url); // HTTP GET Request
+    async function fetchWeather(endpoint, params = {}) {
+      const query = new URLSearchParams({ endpoint, ...params });
+      const response = await fetch(`${BASE_URL}?${query.toString()}`);
       
       if (!response.ok) {
         if (response.status === 404) throw new Error('City not found. Check spelling.');
@@ -64,7 +61,7 @@
         throw new Error(`HTTP Error: ${response.status}`);
       }
       
-      return await response.json(); // JSON Parsing
+      return await response.json();
     }
     
     // 6. DISPLAY CURRENT WEATHER - JSON Parsing
